@@ -2,7 +2,7 @@ package mics.dsl.service
 
 trait Input
 case class NamedInput(inputName: String) extends Input {
-  def typed(inputType: String): TypedInput =
+  def as(inputType: String): TypedInput =
     TypedInput(inputName, inputType)
 }
 case class TypedInput(inputName: String, inputType: String) extends Input {

@@ -1,10 +1,8 @@
 package mics.dsl.service
 
-sealed trait Service {
-  def generate: String = {
-    "TBD"
-  }
-}
+import mics.dsl.generator.CodeGenerator
+
+sealed trait Service extends CodeGenerator
 
 case class NamedService(serviceName: String) extends Service {
   def defines(serviceDescription: String): DescribedService =
@@ -12,19 +10,23 @@ case class NamedService(serviceName: String) extends Service {
 }
 
 case class DescribedService(serviceName: String, serviceDescription: String) extends Service {
-
-  def having(f: (String, String) => ServiceWithModules): ServiceWithModules =
-    f(serviceName, serviceDescription)
-
-  def withModules(modules: Module*): ServiceWithModules =
-    ServiceWithModules(serviceName, serviceDescription, modules)
+  def at(packageName: String): PackagedService =
+    PackagedService(serviceName, serviceDescription, packageName)
 }
 
-case class ServiceWithModules(serviceName: String, serviceDescription: String, modules: Seq[Module]) extends Service
+case class PackagedService(serviceName: String, serviceDescription: String, packageName: String) extends Service {
+  def having(f: (String, String, String) => ServiceWithModules): ServiceWithModules =
+    f(serviceName, serviceDescription, packageName)
+
+  def withModules(modules: Module*): ServiceWithModules =
+    ServiceWithModules(serviceName, serviceDescription, packageName, modules)
+}
+
+case class ServiceWithModules(serviceName: String, serviceDescription: String, packageName: String, modules: Seq[Module]) extends Service
 
 object Service {
   def service(serviceName: String): NamedService = NamedService(serviceName)
 
-  def modules(moduleList: Module*)(serviceName: String, serviceDescription: String): ServiceWithModules =
-    ServiceWithModules(serviceName, serviceDescription, moduleList)
+  def modules(moduleList: Module*)(serviceName: String, serviceDescription: String, packageName: String): ServiceWithModules =
+    ServiceWithModules(serviceName, serviceDescription, packageName, moduleList)
 }

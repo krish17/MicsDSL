@@ -6,6 +6,6 @@ case class TypedOutput(outputDescription: String, outputType: String) extends Ou
 
 object Output {
   implicit class StringToOutput(outputDescription: String) {
-    def typed(outputType: String): TypedOutput = TypedOutput(outputDescription, outputType)
+    def as(outputType: String): TypedOutput = TypedOutput(outputDescription, outputType)
   }
 }
