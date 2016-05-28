@@ -1,7 +1,6 @@
 package mics.dsl.service
 
 trait Output
-case class DescribedOutput(outputDescription: String) extends Output
 case class TypedOutput(outputDescription: String, outputType: String) extends Output
 
 object Output {
