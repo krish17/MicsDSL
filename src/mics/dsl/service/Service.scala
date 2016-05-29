@@ -1,8 +1,6 @@
 package mics.dsl.service
 
-import mics.dsl.generator.CodeGenerator
-
-sealed trait Service extends CodeGenerator
+sealed trait Service
 
 case class NamedService(serviceName: String) extends Service {
   def defines(serviceDescription: String): DescribedService =

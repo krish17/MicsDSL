@@ -5,6 +5,7 @@ import mics.dsl.service.Module._
 import mics.dsl.service.Action._
 import mics.dsl.service.Input._
 import mics.dsl.service.Output._
+import mics.dsl.generator.CodeGenerator._
 
 object Client extends App {
 
@@ -36,5 +37,5 @@ object Client extends App {
       )
   )
 
-  myService.generate("C:/play/activator/projects/library")
+  myService.generateCode("C:/play/activator/projects")
 }
