@@ -37,5 +37,5 @@ object Client extends App {
       )
   )
 
-  myService.generateCode("C:/play/activator/projects")
+  myService.generateCode("C:\\play\\activator\\projects")
 }

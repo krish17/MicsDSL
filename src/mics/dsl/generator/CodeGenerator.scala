@@ -15,10 +15,12 @@ trait CodeGenerator[T] {
 object CodeGenerator {
 
   implicit class ServiceCodeGenerator(service: Service) {
+
     def generateCode(directory: String): Try[Boolean] = {
       val path = Paths.get(directory)
       val codeGenerator = ServiceGenerator(path, service)
       codeGenerator.generate.map(_ => true)
     }
+
   }
 }
